@@ -10,6 +10,8 @@
                     <p class="card-text">{{$project->content}}</p>
                     <p class="card-text">{{$project->link}}</p>
                     <p class="card-text">{{$project->source}}</p>
+                    <p class="card-text">{{$types[($project->type_id) - 1 ]->name}}</p>
+                    
                 </div>
             </div>
         </div>
