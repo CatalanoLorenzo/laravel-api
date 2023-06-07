@@ -29,6 +29,7 @@ class UpdateProjectRequest extends FormRequest
             'cover' =>'required|max:255|min:4',
             'link' =>'required|max:255|min:4',
             'source' =>'required|max:255|min:4',
+            'type_id' => ['exists:types,id']
     ];
     }
 }
