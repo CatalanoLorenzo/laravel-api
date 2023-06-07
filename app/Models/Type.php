@@ -5,24 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','cover','slug']; 
-
     public static function generateSlug($title)
     {
         return Str::slug($title,'-');
     }
+    protected $fillable = ['name','cover','slug']; 
+
     /**
-     * una funzione che determina il tipo di relazione tra Type e Project
+     * Get all of the projects for the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function projects()
+    public function projects(): HasMany
     {
-        //un Modello Type può avere molti modelli Project
-        return $this->hasMany(Project::class);
+        return $this->hasMany(Type::class);
     }
+    
+  
    
 }

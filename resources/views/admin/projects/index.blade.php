@@ -33,7 +33,7 @@
                 <td><img src="{{$project->cover}}" width="200" alt="{{$project->title}}"></td>
                 <td>{{$project->title}}</td>
                 
-                <td><span class="badge bg-success">{{$types[($project->type_id) - 1 ]->name}}</span> </td>
+                <td><span class="badge bg-success">{{$project->type?->name}}</span> </td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->content}}</td>
                 <td>{{$project->link}}</td>

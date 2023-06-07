@@ -15,13 +15,14 @@ class Project extends Model
     {
         return Str::slug($title,'-');
     }
-
     /**
-     * funzione che determina l'appartenenza di un modello Ptoject ad un unico  modello Type
+     * Get the type that owns the Project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function types():BelongsTo
+    public function type(): BelongsTo
     {
-        //un Modello Project può appartenere solo un modello Type
         return $this->belongsTo(Type::class);
     }
+  
 }

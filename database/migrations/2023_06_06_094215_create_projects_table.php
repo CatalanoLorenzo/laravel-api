@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('link')->nullable();
             $table->text('source')->nullable();
-            $table->string('type_id')->nullable();
             $table->timestamps();
         });
     }
