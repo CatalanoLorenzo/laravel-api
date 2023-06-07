@@ -27,6 +27,7 @@
                                 <th>ID</th>
                                 <th>Cover</th>
                                 <th>Name</th>
+                                <th>Count</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                     <td scope="row">{{$type->id}}</td>
                                     <td><img src="{{$type->cover}}" width="200" alt="{{$type->name}}"></td>
                                     <td>{{$type->name}}</td>
+                                    <td>{{$type->count()}}</td>
                                     <td>
                                         <a  class="btn btn-primary" href="{{route('admin.types.edit' , $type )}}" role="button">Edit</a>
                                         <form action="{{route('admin.types.destroy',$type)}}" method="post">
