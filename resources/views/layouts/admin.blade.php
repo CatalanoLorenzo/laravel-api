@@ -101,9 +101,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="#">
+                                <a class="nav-link {{Route::currentRouteName() == 'admin.types.index' ? 'bg-dark' : ''}}" href="{{route('admin.types.index')}}">
                                     <i class="fa-solid fa-bookmark"></i>
-                                    Categories
+                                    {{__('Types')}}
                                 </a>
                             </li>
                             <li class="nav-item">

@@ -18,6 +18,7 @@
                 <th>ID</th>
                 <th>Cover Image</th>
                 <th>Title</th>
+                <th>Type_id</th>
                 <th>slug</th>
                 <th>content</th>
                 <th>Link Project</th>
@@ -31,6 +32,7 @@
                 <td scope="row">{{$project->id}}</td>
                 <td><img src="{{$project->cover}}" width="200" alt="{{$project->title}}"></td>
                 <td>{{$project->title}}</td>
+                <td>{{$project->types?->type_id}}</td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->content}}</td>
                 <td>{{$project->link}}</td>
