@@ -17,8 +17,9 @@ class TypeController extends Controller
      */
     public function index()
     {
+        $singletype = ''; 
         $types = Type::all();
-        return view('admin.types.index', compact('types'));
+        return view('admin.types.index', compact('types','singletype'));
     }
 
     /**
@@ -55,7 +56,10 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
+        $singletype = $type;
+        $types = Type::all();
+        //dd($singletype);
+        return view('admin.types.index', compact("singletype",'types'));
     }
 
     /**
