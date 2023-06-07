@@ -32,7 +32,8 @@
                 <td scope="row">{{$project->id}}</td>
                 <td><img src="{{$project->cover}}" width="200" alt="{{$project->title}}"></td>
                 <td>{{$project->title}}</td>
-                <td>{{$project->types?->type_id}}</td>
+                
+                <td>{{$types[($project->type_id) - 1 ]->name}}</td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->content}}</td>
                 <td>{{$project->link}}</td>
