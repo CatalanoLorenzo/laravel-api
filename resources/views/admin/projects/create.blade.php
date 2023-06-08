@@ -52,6 +52,23 @@
     @enderror
   </div>
 
+  <div class="form-group">
+    <p>Seleziona i tag:</p>
+    @foreach ($technologies as $technology)
+    <div class="form-check @error('technologies') is-invalid @enderror">
+
+      <label class="form-check-label">
+        <input name="technologies[] " type="checkbox" value="{{ $technology->id }}" class="form-check-input" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+        {{ $technology->name }}
+      </label>
+    </div>
+    @endforeach
+
+    @error('technologies')
+    <div class="invalid-feedback">{{$message }}</div>
+    @enderror
+  </div>
+
   <div class="mb-3">
     <label for="source" class="form-label">Source link</label>
     <input type="text" @error ('source') is-invalid @enderror class="form-control" name="source" id="source" aria-describedby="helpId" placeholder="" value="{{old('source')}}">

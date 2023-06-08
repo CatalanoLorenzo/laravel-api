@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use App\Models\Type;
 
 class ProjectController extends Controller
@@ -29,8 +30,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.create',compact('types'));
+        return view('admin.projects.create',compact('types','technologies'));
 
     }
 
@@ -46,7 +48,14 @@ class ProjectController extends Controller
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Project::generateSlug($val_data_form["title"]);
         //dd($val_data_form);
-        Project::create($val_data_form);
+        $new_project = Project::create($val_data_form);
+
+                    // Attach the checked tags
+        if ($request->has('technologies')) {
+            $new_project->technologies()->attach($request->technologies);
+        }
+            //dd($new_project);
+
         return to_route('admin.projects.index')->with('message', 'projects add successfully');
     }
 
@@ -71,8 +80,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.edit', compact("project","types"));
+        return view('admin.projects.edit', compact("project","types","technologies"));
 
     }
 
@@ -90,6 +100,13 @@ class ProjectController extends Controller
         $val_data_form['slug'] = Project::generateSlug($val_data_form["title"]);
         //dd($val_data_form);
         $project->update($val_data_form);
+
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
+
+
         return to_route('admin.projects.index')->with('message', 'projects add successfully');
     }
 

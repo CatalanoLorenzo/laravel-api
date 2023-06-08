@@ -18,7 +18,8 @@
                 <th>ID</th>
                 <th>Cover Image</th>
                 <th>Title</th>
-                <th>Type_id</th>
+                <th>Technologies</th>
+                <th>Type</th>
                 <th>slug</th>
                 <th>content</th>
                 <th>Link Project</th>
@@ -32,7 +33,16 @@
                 <td scope="row">{{$project->id}}</td>
                 <td><img src="{{$project->cover}}" width="200" alt="{{$project->title}}"></td>
                 <td>{{$project->title}}</td>
-                
+                <td>
+                    @forelse ($project->technologies as $technology)
+                    <span class="badge bg-primary">{{ $technology->name }}</span>
+
+                    @empty
+                        <p>No technologies</p>
+                    @endforelse
+                   
+                        
+                </td>
                 <td><span class="badge bg-success">{{$project->type?->name}}</span> </td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->content}}</td>
@@ -59,7 +69,7 @@
                                     are you very sure?
                                 </div>
                                 <div class="modal-footer">
-                                <form action="{{route('admin.projects.destroy',$project)}}" method="post">
+                                    <form action="{{route('admin.projects.destroy',$project)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">yes!</button>
