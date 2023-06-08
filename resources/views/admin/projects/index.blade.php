@@ -69,6 +69,8 @@
                                     are you very sure?
                                 </div>
                                 <div class="modal-footer">
+
+                                
                                     <form action="{{route('admin.projects.destroy',$project)}}" method="post">
                                         @csrf
                                         @method('DELETE')

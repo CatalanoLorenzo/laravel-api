@@ -21,7 +21,7 @@ class TechnologySeeder extends Seeder
         for ($i=0; $i < 5 ; $i++) { 
             $newTecnology = new Technology();
             $newTecnology->name = $faker->sentence(3);
-            $newTecnology->slug = Str::slug($newTecnology->title,'-');
+            $newTecnology->slug = Str::slug($newTecnology->name,'-');
             $newTecnology->cover =  $faker->imageUrl(category:'Technology',format:'jpg');
             $newTecnology->save();
         }
