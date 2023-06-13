@@ -6,6 +6,7 @@ use App\Models\Technology;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class TechnologyController extends Controller
 {
@@ -43,6 +44,11 @@ class TechnologyController extends Controller
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Technology::generateSlug($val_data_form["name"]);
         //dd($val_data_form);
+        if ($request->hasFile('cover')) {
+            $image_path = Storage::put('uploads',$request->cover);
+            //dd($image_path );
+            $val_data_form['cover'] = $image_path;
+        }
         Technology::create($val_data_form);
         return to_route('admin.technologies.index')->with('message', 'type add successfully');
     }
@@ -84,6 +90,11 @@ class TechnologyController extends Controller
         //dd($request);
         $val_data_form = $request->validated();
         //dd($val_data_form);
+        if ($request->hasFile('cover')) {
+            Storage::delete($technology->cover);
+            $image_path = Storage::put('uploads',$request->cover);
+            $val_data_form['cover'] = $image_path;
+        }
         $val_data_form['slug'] = Technology::generateSlug($val_data_form["name"]);
         $technology->update($val_data_form);
         return to_route('admin.technologies.index')->with('message', 'type add successfully');
@@ -97,6 +108,9 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
+        if ($technology->cover) {
+            Storage::delete($technology->cover);
+         }
         //dd($technology);
         $technology->delete();
         return to_route("admin.technologies.index")->with("message", "Technology successfully deleted");

@@ -5,11 +5,11 @@
         <div class="col">
             <h2>Add new Technology</h2>
             <div class="input-group mb-3">
-                <form action="{{route('admin.technologies.store')}}" method="post">
+                <form action="{{route('admin.technologies.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <button class="btn btn-outline-primary p-2 m-3" type="submit" id="">ADD technology</button>
                     <input type="text" class="form-control p-2 m-3" placeholder="write here new technology" aria-label="Button" name="name" id="name">
-                    <input type="text" class="form-control p-2 m-3" placeholder="write here new link for cover" aria-label="Button" name="cover" id="cover">
+                    <input type="file" class="form-control p-2 m-3" placeholder="write here new link for cover" aria-label="Button" name="cover" id="cover">
                 </form>
             </div>
         </div>
@@ -34,7 +34,9 @@
                         @foreach ($technologies as $technology)
                         <tr class="table-primary">
                             <td scope="row">{{$technology->id}}</td>
-                            <td><img src="{{$technology->cover}}" width="200" alt="{{$technology->name}}"></td>
+                            <td>
+                                <img src="{{asset('storage/' . $technology->cover)}}" width="200" alt="{{$technology->name}}">
+                            </td>
                             <td>{{$technology->name}}</td>
                             <td>{{$technology->projects->count()}}</td>
                             <td>
@@ -100,7 +102,8 @@
             <h2>Technology Select</h2>
             @if ($singletechnology)
             <div class="card">
-                <img class="card-img-top" src="{{$singletechnology->cover}}" alt="{{$singletechnology->name}}">
+                <img src="{{asset('storage/' . $singletechnology->cover)}}" alt="{{$technology->name}}">
+
                 <div class="card-body">
                     <h4 class="card-title text-center">{{$singletechnology->name}}</h4>
                     <p class="card-text text-center">{{$singletechnology->slug}}</p>
@@ -113,10 +116,6 @@
             </div>
 
             @endif
-
-
-
-
 
         </div>
     </div>

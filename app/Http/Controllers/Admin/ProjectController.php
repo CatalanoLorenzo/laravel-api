@@ -100,10 +100,11 @@ class ProjectController extends Controller
         $val_data_form['slug'] = Project::generateSlug($val_data_form["title"]);
         //dd($val_data_form);
         $project->update($val_data_form);
+        $new_project = Project::create($val_data_form);
 
 
-        if ($request->has('tags')) {
-            $post->tags()->sync($request->tags);
+        if ($request->has('technologies')) {
+            $new_project->technologies()->sync($request->technologies);
         }
 
 

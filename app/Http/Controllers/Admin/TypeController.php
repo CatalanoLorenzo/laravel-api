@@ -6,7 +6,7 @@ use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Storage;
 
 class TypeController extends Controller
 {
@@ -44,7 +44,13 @@ class TypeController extends Controller
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Type::generateSlug($val_data_form["name"]);
         //dd($val_data_form);
-        type::create($val_data_form);
+        if ($request->hasFile('cover')) {
+            $image_path = Storage::put('uploads',$request->cover);
+            //dd($image_path );
+            $val_data_form['cover'] = $image_path;
+        }
+        //dd($val_data_form);
+        Type::create($val_data_form);
         return to_route('admin.types.index')->with('message', 'type add successfully');
     }
 
@@ -86,6 +92,11 @@ class TypeController extends Controller
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Type::generateSlug($val_data_form["name"]);
         //dd($val_data_form);
+        if ($request->hasFile('cover')) {
+            Storage::delete($type->cover);
+            $image_path = Storage::put('uploads',$request->cover);
+            $val_data_form['cover'] = $image_path;
+        }
         $type->update($val_data_form);
         return to_route('admin.types.index')->with('message', 'type add successfully');
     }
@@ -98,6 +109,9 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
+        if ($type->cover) {
+           Storage::delete($type->cover);
+        }
         $type->delete();
         return to_route('admin.types.index')->with('message', 'types is delete');
     }

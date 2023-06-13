@@ -25,7 +25,7 @@ class UpdateTechnologyRequest extends FormRequest
     {
         return [
             'name' => 'required|max:200|min:5',
-            'cover' =>'required|max:255|min:4',
+            'cover' =>'required|max:700|image',
         ];
     }
 }

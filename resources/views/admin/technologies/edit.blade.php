@@ -6,7 +6,7 @@
                 <a class="btn btn-primary" href="{{route('admin.technologies.index')}}" role="button">Back</a>
             </div>
             <div class="col">
-                <form action="{{route('admin.technologies.update',$technology)}}" method="post">
+                <form action="{{route('admin.technologies.update',$technology)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -17,8 +17,10 @@
                     </div>
 
                     <div class="mb-3">
+                    <img src="{{asset('storage/' . $technology->cover)}}" width="200" alt="{{$technology->name}}">
+
                       <label for="cover" class="form-label">Cover</label>
-                      <input type="text"
+                      <input type="file"
                         class="form-control" name="cover" id="cover" aria-describedby="helpId" value="{{old('cover',$technology->cover)}}">
                     </div>
 
