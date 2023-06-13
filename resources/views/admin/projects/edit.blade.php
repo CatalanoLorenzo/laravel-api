@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<form action="{{route('admin.projects.update',$project)}}" method="post">
+<form action="{{route('admin.projects.update',$project)}}" method="post"  enctype="multipart/form-data">
   @csrf
   @method('PUT')
 
@@ -17,7 +17,8 @@
 
   <div class="mb-3">
     <label for="cover" class="form-label">Cover</label>
-    <input type="text" @error ('cover') is-invalid @enderror class="form-control" name="cover" id="cover" aria-describedby="helpId" placeholder="" value="{{old('cover',$project->cover)}}">
+    <img src="{{asset('storage/' . $project->cover)}}" alt="">
+    <input type="file" @error ('cover') is-invalid @enderror class="form-control" name="cover" id="cover" aria-describedby="helpId" placeholder="" value="{{old('cover',$project->cover)}}">
     <small id="helpId" class="form-text text-muted">Help text</small>
     @error('cover')
     <div class="alert alert-danger" role="alert">

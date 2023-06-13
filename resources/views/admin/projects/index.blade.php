@@ -31,7 +31,9 @@
             @foreach ($projects as $project)
             <tr class="table-primary">
                 <td scope="row">{{$project->id}}</td>
-                <td><img src="{{$project->cover}}" width="200" alt="{{$project->title}}"></td>
+                <td>
+                    <img src="{{asset('storage/' . $project->cover)}}" width="200" alt="{{$project->title}}">
+                </td>
                 <td>{{$project->title}}</td>
                 <td>
                     @forelse ($project->technologies as $technology)

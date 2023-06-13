@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -48,6 +49,11 @@ class ProjectController extends Controller
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Project::generateSlug($val_data_form["title"]);
         //dd($val_data_form);
+        if ($request->hasFile('cover')) {
+            $image_path = Storage::put('uploads',$request->cover);
+            //dd($image_path );
+            $val_data_form['cover'] = $image_path;
+        }
         $new_project = Project::create($val_data_form);
 
                     // Attach the checked tags
@@ -55,7 +61,6 @@ class ProjectController extends Controller
             $new_project->technologies()->attach($request->technologies);
         }
             //dd($new_project);
-
         return to_route('admin.projects.index')->with('message', 'projects add successfully');
     }
 
@@ -95,16 +100,24 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
+        //dd($request);
+
         $val_data_form = $request->validated();
 
         $val_data_form['slug'] = Project::generateSlug($val_data_form["title"]);
         //dd($val_data_form);
-        $project->update($val_data_form);
-        $new_project = Project::create($val_data_form);
+        //$project->update($val_data_form);
+
+        if ($request->hasFile('cover')) {
+            Storage::delete($project->cover);
+            $image_path = Storage::put('uploads',$request->cover);
+            $val_data_form['cover'] = $image_path;
+        }
+        $project ->update($val_data_form);
 
 
         if ($request->has('technologies')) {
-            $new_project->technologies()->sync($request->technologies);
+            $project ->technologies()->sync($request->technologies);
         }
 
 

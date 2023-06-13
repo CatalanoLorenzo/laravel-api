@@ -96,7 +96,9 @@ class TechnologyController extends Controller
             $val_data_form['cover'] = $image_path;
         }
         $val_data_form['slug'] = Technology::generateSlug($val_data_form["name"]);
+
         $technology->update($val_data_form);
+
         return to_route('admin.technologies.index')->with('message', 'type add successfully');
     }
 

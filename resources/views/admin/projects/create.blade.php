@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<form action="{{route('admin.projects.store')}}" method="post">
+<form action="{{route('admin.projects.store')}}" method="post"  enctype="multipart/form-data">
   @csrf
 
   <div class="mb-3">
@@ -16,7 +16,7 @@
 
   <div class="mb-3">
     <label for="cover" class="form-label">Cover</label>
-    <input type="text" @error ('cover') is-invalid @enderror class="form-control" name="cover" id="cover" aria-describedby="helpId" placeholder="" value="{{old('cover')}}">
+    <input type="file" @error ('cover') is-invalid @enderror class="form-control" name="cover" id="cover" aria-describedby="helpId" placeholder="" value="{{old('cover')}}">
     <small id="helpId" class="form-text text-muted">Help text</small>
     @error('cover')
     <div class="alert alert-danger" role="alert">
