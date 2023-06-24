@@ -21,7 +21,7 @@ class ProjectController extends Controller
     {
         //prendo tutti gli elementi dalla tabella project in ordine descrescente per un max 
         //di 8 elementi a pagina e l'inserisco nella variabile
-        $projects = Project::orderByDesc('id')->paginate(8);
+        $projects = Project::all();
 
         //mostro la pagina admin/projectS/index e gli passo la variabile
         return view('admin.projects.index', compact('projects')); 
@@ -74,7 +74,7 @@ class ProjectController extends Controller
             $val_data_form['cover'] = $image_path;
 
         }
-        +
+        
         //creo  una nuova riga nel database come campi i dati della variabile
         $new_project = Project::create($val_data_form);
 

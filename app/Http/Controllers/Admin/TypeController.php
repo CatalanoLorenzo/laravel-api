@@ -43,13 +43,13 @@ class TypeController extends Controller
         //dd($request);
         $val_data_form = $request->validated();
         $val_data_form['slug'] = Type::generateSlug($val_data_form["name"]);
-        //dd($val_data_form);
+        dd($val_data_form);
         if ($request->hasFile('cover')) {
             $image_path = Storage::put('uploads',$request->cover);
             //dd($image_path );
             $val_data_form['cover'] = $image_path;
         }
-        //dd($val_data_form);
+        dd($val_data_form);
         Type::create($val_data_form);
         return to_route('admin.types.index')->with('message', 'type add successfully');
     }
